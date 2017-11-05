@@ -4,14 +4,14 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"sync": "rm -rf ./node_modules/react-native-checkout-mercadopago; sane '/usr/bin/rsync -v -a --exclude .git --exclude example --exclude __tests__ --exclude node_modules ../ ./node_modules/react-native-checkout-mercadopago/' .. --glob='{**/*.json,**/*.js}'",
+		"sync": "rm -rf ./node_modules/react-native-mercadopago-checkout; sane '/usr/bin/rsync -v -a --exclude .git --exclude example --exclude __tests__ --exclude node_modules ../ ./node_modules/react-native-mercadopago-checkout/' .. --glob='{**/*.json,**/*.js}'",
 		"prettier": "./node_modules/.bin/prettier --tab-width 4 --print-width 120 --single-quote --write '*.js'",
 		"test": "jest"
 	},
 	"dependencies": {
-		"react": "16.0.0-alpha.6",
-		"react-native": "^0.43.0",
-		"react-native-checkout-mercadopago": "file:../"
+		"react": "^16.0.0",
+		"react-native": "0.50.1",
+		"react-native-mercadopago-checkout": "file:../"
 	},
 	"devDependencies": {
 		"babel-jest": "17.0.2",

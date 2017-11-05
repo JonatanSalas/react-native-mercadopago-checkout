@@ -4,7 +4,7 @@ import android.app.Application;
 import android.support.multidex.MultiDex;
 
 import com.facebook.react.ReactApplication;
-import com.line64.reactnative.checkoutmercadopago.CheckoutMercadoPagoPackage;
+import com.blackboxvision.reactnative.mercadopagocheckout.MercadoPagoCheckoutPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -24,7 +24,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                 new MainReactPackage(),
-                new CheckoutMercadoPagoPackage()
+                new MercadoPagoCheckoutPackage()
             );
         }
     };

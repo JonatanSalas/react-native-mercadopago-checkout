@@ -1,5 +1,5 @@
 rootProject.name = 'example'
-include ':react-native-checkout-mercadopago'
-project(':react-native-checkout-mercadopago').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-checkout-mercadopago/android')
+include ':react-native-mercadopago-checkout'
+project(':react-native-mercadopago-checkout').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-mercadopago-checkout/android')
 
 include ':app'

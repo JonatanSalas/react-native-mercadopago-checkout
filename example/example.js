@@ -1,5 +1,5 @@
 import React from 'react';
-import { MercadoPagoCheckout } from 'react-native-checkout-mercadopago';
+import { MercadoPagoCheckout } from 'react-native-mercadopago-checkout';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 
 import env from './app.json';

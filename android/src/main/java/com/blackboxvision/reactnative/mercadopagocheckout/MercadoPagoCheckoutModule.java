@@ -14,16 +14,11 @@ import com.mercadopago.preferences.CheckoutPreference;
 import com.mercadopago.preferences.DecorationPreference;
 
 public final class MercadoPagoCheckoutModule extends ReactContextBaseJavaModule {
-    private MercadoPagoCheckoutEventListener eventResultListener;
+    private final MercadoPagoCheckoutEventListener eventResultListener = new MercadoPagoCheckoutEventListener();
 
-    public MercadoPagoCheckoutModule(ReactApplicationContext context) {
-        super(context);
-        init(context);
-    }
-
-    private void init(@NonNull ReactApplicationContext context) {
-        eventResultListener = new MercadoPagoCheckoutEventListener();
-        context.addActivityEventListener(eventResultListener);
+    public MercadoPagoCheckoutModule(ReactApplicationContext reactContext) {
+        super(reactContext);
+        reactContext.addActivityEventListener(eventResultListener);
     }
 
     @Override
