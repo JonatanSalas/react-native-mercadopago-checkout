@@ -1,73 +1,88 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { MercadoPagoCheckout } from 'react-native-mercadopago-checkout';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 
-import env from './app.json';
+export default class Example extends Component {
+    static defaultProps = {
+        publicKey: "TEST-ad365c37-8012-4014-84f5-6c895b3f8e0a",
+        preferenceId: "150216849-ceed1ee4-8ab9-4449-869f-f4a8565d386f",
+        enableDarkFont: false,
+        background: {
+            payment: '#673AB7',
+            paymentData: '#3F51B5'
+        }
+    };
 
-export default class Example extends React.Component {
     state = {
-        status: null
+        status: 'No Action applied yet',
+        error: 'No error captured yet'
     };
 
-    handlePaymentClick = async () => {
+    handlePaymentClick = async _ => {
         try {
-            const enableDarkFont = false;
-            const backgroundColor = '#F44336';
+            this.setState(prevState => ({
+                status: 'No Action applied yet',
+                error: 'No error captured yet'
+            }));
 
-            this.updatePaymentStatus(null);
-
-            const payment = await MercadoPagoCheckout.startForPayment(env['public_key'], env['preference_id'], {
-                backgroundColor,
-                enableDarkFont
+            const payment = await MercadoPagoCheckout.startForPayment(this.props.publicKey, this.props.preferenceId, {
+                backgroundColor: this.props.background.payment,
+                enableDarkFont: this.props.enableDarkFont
             });
 
-            this.updatePaymentStatus(JSON.stringify(payment, null, 2));
+            this.setState(prevState => ({
+                status: JSON.stringify(payment, null, 2)
+            }));
         } catch (error) {
-            this.updatePaymentStatus(error.toString());
+            this.setState(prevState => ({
+                error: error.message
+            }));
         }
     };
 
-    handlePaymentDataClick = async () => {
+    handlePaymentDataClick = async _ => {
         try {
-            const enableDarkFont = false;
-            const backgroundColor = '#F44336';
+            this.setState(prevState => ({
+                status: 'No Action applied yet',
+                error: 'No error captured yet'
+            }));
 
-            this.updatePaymentStatus(null);
-
-            const payment = await MercadoPagoCheckout.startForPaymentData(env['public_key'], env['preference_id'], {
-                backgroundColor,
-                enableDarkFont
+            const payment = await MercadoPagoCheckout.startForPaymentData(this.props.publicKey, this.props.preferenceId, {
+                backgroundColor: this.props.background.paymentData,
+                enableDarkFont: this.props.enableDarkFont
             });
 
-            this.updatePaymentStatus(JSON.stringify(payment, null, 2));
+            this.setState(prevState => ({
+                status: JSON.stringify(payment, null, 2)
+            }));
         } catch (error) {
-            this.updatePaymentStatus(error.toString());
+            this.setState(prevState => ({
+                error: error.message
+            }));
         }
     };
-
-    updatePaymentStatus = status => this.setState(state => ({ status }));
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.instructions}>
-                    Tap the following button to start the checkout flow for Payment
-                </Text>
-                <TouchableHighlight style={styles.button} onPress={this.handlePaymentClick}>
-                    <Text style={styles.text}>
-                        CHECKOUT PRODUCT FOR $100
-                    </Text>
-                </TouchableHighlight>
-                <Text style={styles.instructions}>
-                    Tap the following button to start the checkout flow for Payment Data
-                </Text>
-                <TouchableHighlight style={styles.button} onPress={this.handlePaymentDataClick}>
-                    <Text style={styles.text}>
-                        CHECKOUT PRODUCT FOR $100
-                    </Text>
-                </TouchableHighlight>
                 <Text>
-                    {this.state.status}
+                    You're going to checkout a product with $ 100,00 of cost.
+                </Text>
+                <Button
+                    title="Checkout For Payment"
+                    onPress={this.handlePaymentClick}
+                    color={this.props.background.payment}
+                />
+                <Button
+                    title="Checkout For Payment Data"
+                    onPress={this.handlePaymentDataClick}
+                    color={this.props.background.paymentData}
+                />
+                <Text style={styles.statusText}>
+                    Current Status: {this.state.status}
+                </Text>
+                <Text style={styles.errorText}>
+                    Has Error: {this.state.error}
                 </Text>
             </View>
         );
@@ -81,12 +96,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF'
     },
-    button: {
-        backgroundColor: 'blue',
-        padding: 10,
-        margin: 10
+    statusText: {
+        padding: 8,
+        marginTop: 4,
+        color: '#FFFFFF',
+        backgroundColor: '#1B5E20'
     },
-    text: {
-        color: 'white'
+    errorText: {
+        padding: 8,
+        marginTop: 4,
+        color: '#FFFFFF',
+        backgroundColor: '#B71C1C'
     }
 });
